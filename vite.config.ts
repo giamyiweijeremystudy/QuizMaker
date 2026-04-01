@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: process.env.GITHUB_PAGES_BASE ?? './',
+    base: process.env.NODE_ENV === 'production' ? '/QuizMaker/' : './',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
