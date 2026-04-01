@@ -102,14 +102,14 @@ export function QuizCreator() {
     if (!quiz) return;
     setIsSaving(true);
     try {
-      // Ultra-compact format: [title, [[text, options, answerIndex, explanation], ...]]
+      // Ultra-compact format: [title, [[text, options, answerIndex], ...]]
+      // Explanations excluded from share key to keep it short
       const compactData = [
         quiz.title,
         quiz.questions.map(q => [
           q.text,
           q.options,
           q.options.indexOf(q.options.find((_, i) => String.fromCharCode(65 + i) === q.answer) || ""),
-          q.explanation || ""
         ])
       ];
 
