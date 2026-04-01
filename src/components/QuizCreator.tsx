@@ -366,6 +366,17 @@ export function QuizCreator() {
                   <Plus className="w-5 h-5" />
                   Add Another Question
                 </button>
+
+                {editId && (
+                  <button
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 disabled:opacity-50 active:scale-[0.98] transition-all shadow-lg shadow-indigo-200 dark:shadow-none"
+                  >
+                    <Save className="w-4 h-4" />
+                    {isSaving ? "Saving..." : "Save Changes"}
+                  </button>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
