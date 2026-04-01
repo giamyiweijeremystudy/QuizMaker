@@ -102,15 +102,19 @@ export function QuizCreator() {
     if (!quiz) return;
     setIsSaving(true);
     try {
-      // Ultra-compact format: [title, [[text, options, answerIndex], ...]]
-      // Explanations excluded from share key to keep it short
+      // Ultra-compact format: [title, [[text, options, answerIndex, explanation?], ...]]
+      // Explanation only included if non-empty to keep key as short as possible
       const compactData = [
         quiz.title,
-        quiz.questions.map(q => [
-          q.text,
-          q.options,
-          q.options.indexOf(q.options.find((_, i) => String.fromCharCode(65 + i) === q.answer) || ""),
-        ])
+        quiz.questions.map(q => {
+          const entry: any[] = [
+            q.text,
+            q.options,
+            q.options.indexOf(q.options.find((_, i) => String.fromCharCode(65 + i) === q.answer) || ""),
+          ];
+          if (q.explanation) entry.push(q.explanation);
+          return entry;
+        })
       ];
 
       const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(compactData));
